@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Doodler.jpg</file>
+        <file>Doodler2.png</file>
+        <file>Platform2.png</file>
+        <file>Checkered sheet.jpg</file>
+    </qresource>
+</RCC>
