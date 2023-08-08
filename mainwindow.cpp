@@ -19,7 +19,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // hide scrollbar
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
-    menuGame(); // call menu of game
+    createMenuGame(); // call menu of game
 }
 void MainWindow::connectFun() {
     Timer = new QTimer(this);
@@ -33,41 +33,70 @@ void MainWindow::connectFun() {
         if (-doodler->y() > maxScore - startPosY) {
             maxScore = -doodler->y() + startPosY;
             score->setText(QString::number(int(maxScore/4)));
+
+            if (maxScore > recordInt) {
+                recordInt = maxScore;
+                recordLab->setText("record = " +  QString::number(recordInt/4));
+            }
         }
     });
     connect(pause, &QPushButton::clicked, this, [this] { // pause pressed
         doodler->stop();
         continueGameBut->show();
         restartGameBut->show();
+        menuBut->show();
     });
     connect(continueGameBut, &QPushButton::clicked, this, [this] { // continue pressed
         doodler->cont();
         continueGameBut->hide();
         restartGameBut->hide();
+        menuBut->hide();
     });
     connect(Timer, QTimer::timeout, this, [this] { // doolder die
-        if ((maxScore - (-doodler->y())) > 520) { restartGameBut->show(); }}
+        if ((maxScore - (-doodler->y())) > 520) {
+
+            restartGameBut->setGeometry(880, 400, 200, 60);
+            exitGameBut->setGeometry(880, 470, 200, 60);
+
+            restartGameBut->show();
+            exitGameBut->show();
+        }}
     );
-    connect(restartGameBut, &QPushButton::clicked, this, [this] {
+    connect(restartGameBut, &QPushButton::clicked, this, [this] { // put restart button
        restartGame();
     });
+    connect(menuBut, &QPushButton::clicked, this, [this] { showMenu(); });
+}
+
+void MainWindow::showMenu() {
+    continueGameBut->hide();
+    restartGameBut->hide();
+    menuBut->hide();
+
+    startGameBut->show();
+    exitGameBut->show();
+    recordLab->show();
 }
 
 void MainWindow::platformGenerator(qreal doodlerPos) {
-    static qreal y = -2500;
+    //static qreal y = -2500;
 
-    if ((doodlerPos - y) < 900 && (doodlerPos - y) > 400) {
-        y-=500;
+    if ((doodlerPos - maxHighPlatfrom) < 900 && (doodlerPos - maxHighPlatfrom) > 400) {
+        maxHighPlatfrom-=500;
         Platform* newPlatform = new Platform();
         int x = rand() % 1300 - 500;
-        newPlatform->setPos(x, y);
+        newPlatform->setPos(x, maxHighPlatfrom);
         newPlatform->setZValue(-1);
-        maxHighPlatfrom = y;
+        //maxHighPlatfrom = y;
         scene->addItem(newPlatform);
     }
 }
 
 void MainWindow::startGame() {
+    if (!firtStart) {
+        restartGame();
+        return;
+    }
     // Doodler
     doodler = new Doodler;
     doodler->setPos(300, -1500); //-1500
@@ -112,14 +141,24 @@ void MainWindow::startGame() {
     restartGameBut->setStyleSheet("background-color: black;");
     restartGameBut->setGeometry(880, 520, 200, 60);
 
+    menuBut = new QPushButton(this);
+    scene->addWidget(menuBut);
+    menuBut->setText("Menu");
+    menuBut->setStyleSheet("background-color: black;");
+    menuBut->setGeometry(880, 590, 200, 60);
 
     scene->setStickyFocus(true);
+
+    firtStart = false;
 
     connectFun();
 }
 
 void MainWindow::restartGame() {
+    maxHighPlatfrom = -2500;
+
     delete doodler;
+
     doodler = new Doodler;
     doodler->setPos(300, -1550);
     scene->addItem(doodler);
@@ -139,20 +178,46 @@ void MainWindow::restartGame() {
 
     continueGameBut->hide();
     restartGameBut->hide();
+    exitGameBut->hide();
+    menuBut->hide();
+
+    // return buttons to priv pos
+    restartGameBut->setGeometry(880, 520, 200, 60);
+    exitGameBut->setGeometry(880, 470, 200, 60);
 }
 
-void MainWindow::menuGame() {
+void MainWindow::createMenuGame() {
     startGameBut = new QPushButton(this);
     scene->addWidget(startGameBut);
     startGameBut->setText("Start");
     startGameBut->setGeometry(880, 400, 200, 60);
+    startGameBut->setStyleSheet("background-color: black;");
     startGameBut->show();
 
-//    exitGameBut = new QPushButton(this);
+    exitGameBut = new QPushButton(this);
+    scene->addWidget(exitGameBut);
+    exitGameBut->setText("Exit");
+    exitGameBut->setGeometry(880, 470, 200, 60);
+    exitGameBut->setStyleSheet("background-color: black;");
+    exitGameBut->show();
+
+    // Record
+    recordLab = new QLabel(this);
+    recordLab->show();
+    recordLab->setGeometry(920, 200, 300, 50);
+    recordLab->setStyleSheet("QLabel{font-size: 18pt;}");
+    scene->addWidget(recordLab);
+    recordLab->setText("Record = 0");
+    recordLab->show();
 
     connect(startGameBut, &QPushButton::clicked, this, [this] {
         startGame();
         startGameBut->hide();
+        exitGameBut->hide();
+        recordLab->hide();
+    });
+    connect(exitGameBut, &QPushButton::clicked, this, [this] {
+        exit(0);
     });
 }
 

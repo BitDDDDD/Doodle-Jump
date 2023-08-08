@@ -19,20 +19,24 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     void sceneMove();
     void platformGenerator(qreal doodlerPos);
-    void menuGame();
+    void createMenuGame();
     void startGame();
     void restartGame();
     void connectFun();
+    void showMenu();
     ~MainWindow();
 
 private:
     Ui::MainWindow *ui;
     QGraphicsScene* scene        = nullptr;
+    bool firtStart               = true;
     Doodler* doodler             = nullptr;
-    qreal maxHighPlatfrom        = 0;
+    qreal maxHighPlatfrom        = -2500;
     int maxScore                 = 0;
     qreal startPosY              = -1500;
+    int recordInt                = 0;
     QLabel* score                = nullptr;
+    QLabel* recordLab            = nullptr;
     QPushButton* pause           = nullptr;
     QPushButton* continueGameBut = nullptr;
     QPushButton* startGameBut    = nullptr;
