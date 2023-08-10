@@ -3,7 +3,6 @@
 
 #include <QTimer>
 #include <QKeyEvent>
-#include <QGraphicsPixmapItem>
 #include "platform.h"
 
 class Doodler : public QObject, public QGraphicsPixmapItem {
@@ -24,10 +23,11 @@ protected:
     virtual void keyReleaseEvent(QKeyEvent *event);
 
 private:
-    qreal maxUpSpeed = -1;
+    qreal maxUpSpeed   = -1;
     qreal maxDownSpeed = 1;
-    qreal xspeed = 0;
-    qreal yspeed = maxDownSpeed;
+    qreal springSpeed  = -2;
+    qreal xspeed       = 0;
+    qreal yspeed       = maxDownSpeed;
     enum condition {noSpeed = 0, normalSpeed = 1};
     condition state = normalSpeed;
 };

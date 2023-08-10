@@ -29,15 +29,15 @@ public:
 private:
     Ui::MainWindow *ui;
     QGraphicsScene* scene        = nullptr;
-    bool firtStart               = true;
     Doodler* doodler             = nullptr;
+    bool firtStart               = true;
     qreal maxHighPlatfrom        = -2500;
     int maxScore                 = 0;
     qreal startPosY              = -1500;
     int recordInt                = 0;
     QLabel* score                = nullptr;
     QLabel* recordLab            = nullptr;
-    QPushButton* pause           = nullptr;
+    QPushButton* pauseBut        = nullptr;
     QPushButton* continueGameBut = nullptr;
     QPushButton* startGameBut    = nullptr;
     QPushButton* restartGameBut  = nullptr;

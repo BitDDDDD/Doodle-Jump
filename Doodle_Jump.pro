@@ -27,12 +27,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     platform.cpp \
-    doodler.cpp
+    doodler.cpp \
+    platformitems.cpp
 
 HEADERS += \
         mainwindow.h \
     doodler.h \
-    platform.h
+    platform.h \
+    platformitems.h
 
 FORMS += \
         mainwindow.ui

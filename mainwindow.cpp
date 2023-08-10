@@ -26,7 +26,7 @@ void MainWindow::connectFun() {
     Timer->start(2);
     connect(Timer, QTimer::timeout, scene, QGraphicsScene::advance);
     connect(Timer, QTimer::timeout, this, [=]{ scene->setSceneRect(0, -maxScore+startPosY + 100, 400, 400); }); // scene at level of dooler's max score + 100
-    connect(Timer, QTimer::timeout, this, [=]{ Platform::getY() = doodler->y(); }); // platforms know where is doodler at Y. For deleting platforms
+    connect(Timer, QTimer::timeout, this, [=]{ Platform::getDoodlerY(doodler->y()); }); // platforms know where is doodler at Y. For deleting platforms
     connect(Timer, QTimer::timeout, this, [this]{ doodler->outOfBoundaries(); } ); // teleport Doodler if out of boundaries
     connect(Timer, QTimer::timeout, this, [this]{ platformGenerator(doodler->y()); }); // platform generator
     connect(Timer, QTimer::timeout, this, [this]{ // chaneg score
@@ -36,11 +36,11 @@ void MainWindow::connectFun() {
 
             if (maxScore > recordInt) {
                 recordInt = maxScore;
-                recordLab->setText("record = " +  QString::number(recordInt/4));
+                recordLab->setText("Record = " +  QString::number(recordInt/4));
             }
         }
     });
-    connect(pause, &QPushButton::clicked, this, [this] { // pause pressed
+    connect(pauseBut, &QPushButton::clicked, this, [this] { // pause pressed
         doodler->stop();
         continueGameBut->show();
         restartGameBut->show();
@@ -79,8 +79,6 @@ void MainWindow::showMenu() {
 }
 
 void MainWindow::platformGenerator(qreal doodlerPos) {
-    //static qreal y = -2500;
-
     if ((doodlerPos - maxHighPlatfrom) < 900 && (doodlerPos - maxHighPlatfrom) > 400) {
         maxHighPlatfrom-=500;
         Platform* newPlatform = new Platform();
@@ -89,14 +87,18 @@ void MainWindow::platformGenerator(qreal doodlerPos) {
         newPlatform->setZValue(-1);
         //maxHighPlatfrom = y;
         scene->addItem(newPlatform);
+        scene->addItem(newPlatform->getPlatformItem());
+        newPlatform->getPlatformItem()->setZValue(-1);
     }
 }
 
 void MainWindow::startGame() {
+    // First run
     if (!firtStart) {
         restartGame();
         return;
     }
+
     // Doodler
     doodler = new Doodler;
     doodler->setPos(300, -1500); //-1500
@@ -122,12 +124,12 @@ void MainWindow::startGame() {
     scene->addWidget(score);
 
     // Buttons
-    pause = new QPushButton(this);
-    scene->addWidget(pause);
-    pause->setText("Pause");
-    pause->setStyleSheet("background-color: black;");
-    pause->show();
-    pause->setGeometry(1808, 23, 100, 30);
+    pauseBut = new QPushButton(this);
+    scene->addWidget(pauseBut);
+    pauseBut->setText("Pause");
+    pauseBut->setStyleSheet("background-color: black;");
+    pauseBut->show();
+    pauseBut->setGeometry(1808, 23, 100, 30);
 
     continueGameBut = new QPushButton(this);
     scene->addWidget(continueGameBut);

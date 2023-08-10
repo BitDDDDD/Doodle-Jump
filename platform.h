@@ -1,7 +1,8 @@
 #ifndef PLATFORM_H
 #define PLATFORM_H
 
-#include <QGraphicsPixmapItem>
+#include <platformitems.h>
+
 class Platform : public QGraphicsPixmapItem {
 public:
     Platform(QGraphicsItem* parent = nullptr);
@@ -9,9 +10,11 @@ public:
     void deletePlatform();
 public slots:
     virtual void advance(int phase);
-    static qreal& getY();
+    static void getDoodlerY(qreal y);
+    QGraphicsPixmapItem* getPlatformItem();
 private:
     static qreal doodlerY;
+    QGraphicsPixmapItem* platformItem = nullptr;
 };
 
 #endif // PLATFORM_H

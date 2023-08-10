@@ -8,8 +8,11 @@ Doodler::Doodler() {
 
 void Doodler::advance(int phase) {
     foreach(QGraphicsItem* item, collidingItems()) {
-        if (typeid(*item) == typeid(Platform) && (yspeed > 0)) { // yspeed > 0 == if higher than plathorm
+        if (typeid(*item) == typeid(Platform) && (yspeed > 0)) { // yspeed > 0 means doodler fall
             yspeed = maxUpSpeed; // do jump
+        }
+        if (typeid(*item) == typeid(Spring) && (yspeed > 0)) { // yspeed > 0 means doodler fall
+            yspeed = springSpeed; // do jump
         }
     }
 
