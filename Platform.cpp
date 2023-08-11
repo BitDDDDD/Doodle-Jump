@@ -4,8 +4,15 @@ Platform::Platform(QGraphicsItem* parent) : QGraphicsPixmapItem(parent) {
     setPos(300, -1500);
 
     // Create rand spring or rocket
-    platformItem = new Spring();
-    platformItem->show();
+    int x = rand() % 3;
+    switch (rand() % 3) {
+        case 1:
+            platformItem = new Spring();
+            break;
+        case 2:
+            platformItem = new Rocket();
+            break;
+    }
 }
 
 void Platform::deletePlatform() {
@@ -20,7 +27,8 @@ void Platform::deletePlatform() {
 
 void Platform::advance(int phase) {
     deletePlatform();
-    if (platformItem) platformItem->setPos(this->x() + 50, this->y()+30); // add item to platform
+    if (platformItem && (dynamic_cast<Spring*>(platformItem))) platformItem->setPos(this->x() + 50, this->y() + 30); // add item to platform
+    if (platformItem && (dynamic_cast<Rocket*>(platformItem))) platformItem->setPos(this->x() + 50, this->y() - 20); // add item to platform
 }
 
 qreal Platform::doodlerY = 0;

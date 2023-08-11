@@ -80,15 +80,15 @@ void MainWindow::showMenu() {
 
 void MainWindow::platformGenerator(qreal doodlerPos) {
     if ((doodlerPos - maxHighPlatfrom) < 900 && (doodlerPos - maxHighPlatfrom) > 400) {
-        maxHighPlatfrom-=500;
+        maxHighPlatfrom -= 500;
         Platform* newPlatform = new Platform();
-        int x = rand() % 1300 - 500;
-        newPlatform->setPos(x, maxHighPlatfrom);
+        newPlatform->setPos(rand() % 1300 - 500, maxHighPlatfrom);
         newPlatform->setZValue(-1);
-        //maxHighPlatfrom = y;
         scene->addItem(newPlatform);
-        scene->addItem(newPlatform->getPlatformItem());
-        newPlatform->getPlatformItem()->setZValue(-1);
+        if (newPlatform->getPlatformItem()) {
+            scene->addItem(newPlatform->getPlatformItem());
+            newPlatform->getPlatformItem()->setZValue(-1);
+        }
     }
 }
 

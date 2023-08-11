@@ -6,5 +6,5 @@ Spring::Spring(QGraphicsItem* parent) : QGraphicsPixmapItem(parent) {
 
 Rocket::Rocket(QGraphicsItem *parent)
 {
-    // rocket
+    setPixmap(QPixmap("://Rocket2.png").scaled((QSize(50,90))));
 }

@@ -2,6 +2,8 @@
 #define PLATFORM_H
 
 #include <platformitems.h>
+#include <stdlib.h>
+#include <typeinfo>
 
 class Platform : public QGraphicsPixmapItem {
 public:
