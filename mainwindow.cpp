@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     createMenuGame(); // call menu of game
 }
+
 void MainWindow::connectFun() {
     Timer = new QTimer(this);
     Timer->start(2);

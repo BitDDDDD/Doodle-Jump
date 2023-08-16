@@ -4,20 +4,35 @@ Doodler::Doodler() {
     setPixmap(QPixmap("://Doodler2-right.png").scaled(QSize(100, 100)));
     setFlag(QGraphicsItem::ItemIsFocusable);
     setFocus();
+
+    // set jump sound
+    jumpSound = new QMediaPlayer();
+    jumpSound->setMedia(QUrl::fromLocalFile("jump.wav"));
+
+    // set spring jump sound
+    springSound = new QMediaPlayer();
+    springSound->setMedia(QUrl::fromLocalFile("feder.mp3"));
+
+    // set rocket jump sound
+    rocketSound = new QMediaPlayer();
+    rocketSound->setMedia(QUrl::fromLocalFile("rocket.mp3"));
 }
 
 void Doodler::advance(int phase) {
     foreach(QGraphicsItem* item, collidingItems()) {
         if (typeid(*item) == typeid(Platform) && (yspeed > 0)) { // yspeed > 0 means doodler fall
             yspeed = maxUpSpeed; // do jump
+            jumpSound->play();
         }
         if ((dynamic_cast<Spring*>(item)) && (yspeed > 0)) { // yspeed > 0 means doodler fall
             yspeed = springSpeed; // do spring jump
+            springSound->play();
         }
         if (dynamic_cast<Rocket*>(item)) { // yspeed > 0 means doodler fall
             yspeed = rocketSpeed; // use rocket
             setPixmap(QPixmap("://Doodler-rocket-right.png").scaled(QSize(100, 100)));
             doodlerUseRocket = true;
+            rocketSound->play();
         }
     }
 

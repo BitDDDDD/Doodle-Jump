@@ -3,6 +3,7 @@
 
 #include <QTimer>
 #include <QKeyEvent>
+#include <QMediaPlayer>
 #include "platform.h"
 
 class Doodler : public QObject, public QGraphicsPixmapItem {
@@ -23,12 +24,15 @@ protected:
     virtual void keyReleaseEvent(QKeyEvent *event);
 
 private:
-    qreal maxUpSpeed   = -1;
-    qreal maxDownSpeed = 1;
-    qreal springSpeed  = -2;
-    qreal rocketSpeed  = -4;
-    qreal xspeed       = 0;
-    qreal yspeed       = maxDownSpeed;
+    qreal maxUpSpeed          = -1;
+    qreal maxDownSpeed        = 1;
+    qreal springSpeed         = -2;
+    qreal rocketSpeed         = -4;
+    qreal xspeed              = 0;
+    qreal yspeed              = maxDownSpeed;
+    QMediaPlayer* jumpSound   = nullptr;
+    QMediaPlayer* springSound = nullptr;
+    QMediaPlayer* rocketSound = nullptr;
     enum condition {noSpeed = 0, normalSpeed = 1};
     condition state = normalSpeed;
     bool doodlerUseRocket = false;

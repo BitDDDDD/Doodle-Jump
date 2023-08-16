@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>feder.mp3</file>
+        <file>rocket.mp3</file>
+        <file>jump.wav</file>
+    </qresource>
+</RCC>
