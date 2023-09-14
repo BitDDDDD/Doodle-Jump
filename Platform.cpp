@@ -1,6 +1,6 @@
 #include "platform.h"
 Platform::Platform(QGraphicsItem* parent) : QGraphicsPixmapItem(parent) {
-    setPixmap(QPixmap("://Platform2.png").scaled(QSize(200, 100)));
+    setPixmap(QPixmap("://images/Platform2.png").scaled(QSize(200, 100)));
     setPos(300, -1500);
 
     // Create rand spring or rocket

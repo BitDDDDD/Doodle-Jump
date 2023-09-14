@@ -1,14 +1,12 @@
 <RCC>
     <qresource prefix="/">
-        <file>Platform2.png</file>
-        <file>Checkered sheet.jpg</file>
-        <file>Spring2.png</file>
-        <file>Spring3.png</file>
-        <file>Doodler2-right.png</file>
-        <file>Doodler-rocket-left.png</file>
-        <file>Doodler2.png</file>
-        <file>Doodler-rocket-right.png</file>
-        <file>Rocket2.png</file>
-        <file>Doodler2-left.png</file>
+        <file>images/Checkered sheet.jpg</file>
+        <file>images/Doodler2-left.png</file>
+        <file>images/Doodler2-right.png</file>
+        <file>images/Doodler-rocket-left.png</file>
+        <file>images/Doodler-rocket-right.png</file>
+        <file>images/Platform2.png</file>
+        <file>images/Rocket2.png</file>
+        <file>images/Spring3.png</file>
     </qresource>
 </RCC>

@@ -14,7 +14,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QWidget::showMaximized(); // max size window
 
     // Set background
-    this->setStyleSheet("background-image: url(://Checkered sheet.jpg);");
+    this->setStyleSheet("background-image: url(://images/Checkered sheet.jpg);");
 
     // hide scrollbar
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -25,12 +25,12 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::connectFun() {
     Timer = new QTimer(this);
     Timer->start(2);
-    connect(Timer, QTimer::timeout, scene, QGraphicsScene::advance);
-    connect(Timer, QTimer::timeout, this, [=]{ scene->setSceneRect(0, -maxScore+startPosY + 100, 400, 400); }); // scene at level of dooler's max score + 100
-    connect(Timer, QTimer::timeout, this, [=]{ Platform::getDoodlerY(doodler->y()); }); // platforms know where is doodler at Y. For deleting platforms
-    connect(Timer, QTimer::timeout, this, [this]{ doodler->outOfBoundaries(); } ); // teleport Doodler if out of boundaries
-    connect(Timer, QTimer::timeout, this, [this]{ platformGenerator(doodler->y()); }); // platform generator
-    connect(Timer, QTimer::timeout, this, [this]{ // chaneg score
+    connect(Timer, &QTimer::timeout, scene, QGraphicsScene::advance);
+    connect(Timer, &QTimer::timeout, this, [=]{ scene->setSceneRect(0, -maxScore+startPosY + 100, 400, 400); }); // scene at level of dooler's max score + 100
+    connect(Timer, &QTimer::timeout, this, [=]{ Platform::getDoodlerY(doodler->y()); }); // platforms know where is doodler at Y. For deleting platforms
+    connect(Timer, &QTimer::timeout, this, [this]{ doodler->outOfBoundaries(); } ); // teleport Doodler if out of boundaries
+    connect(Timer, &QTimer::timeout, this, [this]{ platformGenerator(doodler->y()); }); // platform generator
+    connect(Timer, &QTimer::timeout, this, [this]{ // chaneg score
         if (-doodler->y() > maxScore - startPosY) {
             maxScore = -doodler->y() + startPosY;
             score->setText(QString::number(int(maxScore/4)));
@@ -53,7 +53,7 @@ void MainWindow::connectFun() {
         restartGameBut->hide();
         menuBut->hide();
     });
-    connect(Timer, QTimer::timeout, this, [this] { // doolder die
+    connect(Timer, &QTimer::timeout, this, [this] { // doolder die
         if ((maxScore - (-doodler->y())) > 520) {
 
             restartGameBut->setGeometry(880, 400, 200, 60);

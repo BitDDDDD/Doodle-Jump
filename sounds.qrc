@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>feder.mp3</file>
-        <file>rocket.mp3</file>
-        <file>jump.wav</file>
+        <file>sounds/feder.mp3</file>
+        <file>sounds/jump.wav</file>
+        <file>sounds/rocket.mp3</file>
     </qresource>
 </RCC>
