@@ -3,15 +3,17 @@ Platform::Platform(QGraphicsItem* parent) : QGraphicsPixmapItem(parent) {
     setPixmap(QPixmap("://images/Platform2.png").scaled(QSize(200, 100)));
     setPos(300, -1500);
 
-    // Create rand spring or rocket
-    int x = rand() % 3;
-    switch (rand() % 3) {
+    // Create rand spring or rocket or bonker
+    int x = rand() % 6;
+    switch (rand() % 6) {
         case 1:
             platformItem = new Spring();
             break;
         case 2:
             platformItem = new Rocket();
             break;
+        case 3:
+            platformItem = new Bonker();
     }
 }
 
@@ -29,6 +31,7 @@ void Platform::advance(int phase) {
     deletePlatform();
     if (platformItem && (dynamic_cast<Spring*>(platformItem))) platformItem->setPos(this->x() + 50, this->y() + 30); // add item to platform
     if (platformItem && (dynamic_cast<Rocket*>(platformItem))) platformItem->setPos(this->x() + 50, this->y() - 20); // add item to platform
+    if (platformItem && (dynamic_cast<Bonker*>(platformItem))) platformItem->setPos(this->x() + 50, this->y() - 70); // add item to platform
 }
 
 qreal Platform::doodlerY = 0;
