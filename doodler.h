@@ -28,11 +28,13 @@ private:
     qreal maxDownSpeed        = 1;
     qreal springSpeed         = -2;
     qreal rocketSpeed         = -4;
+    qreal bonkerSpeed         = -8;
     qreal xspeed              = 0;
     qreal yspeed              = maxDownSpeed;
     QMediaPlayer* jumpSound   = nullptr;
     QMediaPlayer* springSound = nullptr;
     QMediaPlayer* rocketSound = nullptr;
+    QMediaPlayer* bonkerSound = nullptr;
     enum condition {noSpeed = 0, normalSpeed = 1};
     condition state = normalSpeed;
     bool doodlerUseRocket = false;
