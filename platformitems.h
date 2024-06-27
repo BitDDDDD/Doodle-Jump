@@ -13,5 +13,9 @@ public:
     Rocket(QGraphicsItem* parent = nullptr);
 };
 
+class Bonker : public QGraphicsPixmapItem {
+public:
+     Bonker(QgraphicsItem* parent = nullptr);
+};
 
 #endif // PLATFORMITEMS_H
