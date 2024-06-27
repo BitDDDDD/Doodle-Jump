@@ -16,6 +16,10 @@ Doodler::Doodler() {
     // set rocket sound
     rocketSound = new QMediaPlayer();
     rocketSound->setMedia(QUrl::fromLocalFile("rocket.mp3"));
+    
+    // set bonker sound
+    bonkerSound = new QMediaPlayer()
+    bonkerSound->setMedia(QUrl::fromLocalFile("bonker.mp3"));
 }
 
 void Doodler::advance(int phase) {
@@ -34,6 +38,8 @@ void Doodler::advance(int phase) {
             doodlerUseRocket = true;
             rocketSound->play();
         }
+        if (dynamic_cast<Bonker*>(item)) {
+            
     }
 
     jump();
