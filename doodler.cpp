@@ -39,7 +39,10 @@ void Doodler::advance(int phase) {
             rocketSound->play();
         }
         if (dynamic_cast<Bonker*>(item)) {
-            
+            moveBy(xspeed, yspeed);
+            yspeed+= bonkerSpeed;
+            xspeed+= 0;
+            bonkerSound->play();
     }
 
     jump();
